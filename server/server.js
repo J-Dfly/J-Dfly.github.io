@@ -10,7 +10,8 @@ const server = http.createServer((req, res) => {
   // 设置CORS头，允许所有来源访问
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
+  res.setHeader('Access-Control-Max-Age', '86400'); // 24小时
   
   // 处理预检请求
   if (req.method === 'OPTIONS') {
@@ -38,12 +39,13 @@ const server = http.createServer((req, res) => {
       
       // 数据接收完成，发送给客户端
       apiRes.on('end', () => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+        // 明确设置内容类型为JSON
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(data);
       });
     }).on('error', (err) => {
       // 处理错误
-      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
       res.end(JSON.stringify({ 
         code: -1, 
         message: '获取B站数据失败', 
@@ -52,7 +54,7 @@ const server = http.createServer((req, res) => {
     });
   } else {
     // 对于其他请求路径，返回404
-    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.writeHead(404, { 'Content-Type': 'application/json; charset=utf-8' });
     res.end(JSON.stringify({ 
       code: 404, 
       message: '未找到API路径，只支持/api/bilibili-fans' 
