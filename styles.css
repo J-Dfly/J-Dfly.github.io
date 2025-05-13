@@ -7,16 +7,20 @@
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    -o-text-size-adjust: 100%;
     text-size-adjust: 100%;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    -o-user-select: none;
     user-select: none;
 }
 
 html, body {
     -webkit-touch-action: manipulation;
+    -moz-touch-action: manipulation;
     -ms-touch-action: manipulation;
+    -o-touch-action: manipulation;
     touch-action: manipulation;
     overflow-x: hidden;
 }
@@ -26,6 +30,7 @@ p, .image-caption {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
+    -o-user-select: text;
     user-select: text;
 }
 
@@ -222,7 +227,9 @@ p {
     max-width: 800px;
     margin: 0 auto;
     -webkit-touch-action: pan-y;
+    -moz-touch-action: pan-y;
     -ms-touch-action: pan-y;
+    -o-touch-action: pan-y;
     touch-action: pan-y;
 }
 
@@ -573,7 +580,9 @@ p {
 .slide-nav, .indicator, .apple-button {
     cursor: pointer;
     -webkit-touch-action: manipulation;
+    -moz-touch-action: manipulation;
     -ms-touch-action: manipulation;
+    -o-touch-action: manipulation;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
@@ -849,4 +858,20 @@ p {
     .container {
         padding: 15px;
     }
+}
+
+.connection-info {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #86868b;
+}
+
+.mobile-link {
+    color: #0070F5;
+    text-decoration: none;
+}
+
+.mobile-link:hover {
+    text-decoration: underline;
 } 

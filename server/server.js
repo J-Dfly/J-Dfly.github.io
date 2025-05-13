@@ -62,7 +62,8 @@ const server = http.createServer((req, res) => {
 
 // 设置服务器监听端口
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`B站粉丝数据API服务器运行在 http://localhost:${PORT}/`);
   console.log(`访问 http://localhost:${PORT}/api/bilibili-fans?uid=用户ID 获取B站粉丝数据`);
+  console.log(`...`);
 }); 

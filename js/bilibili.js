@@ -11,12 +11,74 @@ document.addEventListener('DOMContentLoaded', function() {
     const refreshButton = document.getElementById('refreshBtn');
     const uidInput = document.getElementById('uidInput');
     const avatarElement = document.getElementById('bilibili-avatar');
+    const connectionInfo = document.getElementById('connection-info');
     
     // 默认的B站UID（B站官方账号）
     let currentUid = '2';
     
-    // API服务器URL - 可以根据需要修改
-    const API_SERVER = 'http://localhost:3000';
+    // API服务器URL - 自动检测当前环境
+    const getApiServer = () => {
+        // 检查URL参数中是否指定了API服务器地址
+        const urlParams = new URLSearchParams(window.location.search);
+        const apiParam = urlParams.get('api');
+        
+        if (apiParam) {
+            return apiParam;
+        }
+        
+        // 获取当前页面URL的主机部分
+        const currentHost = window.location.hostname;
+        
+        // 如果是本地文件访问，默认尝试localhost
+        if (currentHost === '' || window.location.protocol === 'file:') {
+            return 'http://localhost:3000';
+        }
+        
+        // 如果是localhost或127.0.0.1
+        if (currentHost === 'localhost' || currentHost === '127.0.0.1') {
+            return 'http://localhost:3000';
+        }
+        
+        // 尝试使用相对路径
+        return window.location.protocol + '//' + window.location.host + '/api';
+    };
+    
+    const API_SERVER = getApiServer();
+    console.log('使用API服务器:', API_SERVER);
+    
+    // 显示API服务器地址和连接信息
+    const showConnectionInfo = () => {
+        if (connectionInfo) {
+            // 添加API服务器信息
+            const apiInfo = document.createElement('div');
+            apiInfo.style.fontSize = '12px';
+            apiInfo.style.color = '#86868b';
+            apiInfo.style.margin = '5px 0';
+            apiInfo.innerHTML = `当前API: <span style="color:#0070F5">${API_SERVER}</span>`;
+            
+            // 添加配置提示
+            const helpInfo = document.createElement('div');
+            helpInfo.style.fontSize = '12px';
+            helpInfo.style.color = '#86868b';
+            helpInfo.style.margin = '5px 0';
+            helpInfo.innerHTML = `<span style="color:#ff6b81">提示: 本地访问时请确保服务器已启动</span>`;
+            
+            // 添加到页面
+            connectionInfo.appendChild(apiInfo);
+            connectionInfo.appendChild(helpInfo);
+        }
+    };
+    
+    // 从URL参数中获取默认UID
+    const urlParams = new URLSearchParams(window.location.search);
+    const uidParam = urlParams.get('uid');
+    if (uidParam) {
+        currentUid = uidParam;
+        uidInput.value = uidParam;
+    }
+    
+    // 显示连接信息
+    showConnectionInfo();
     
     // 格式化数字，添加千位分隔符
     function formatNumber(num) {
@@ -44,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
         followerElement.textContent = '获取失败';
         followingElement.textContent = '获取失败';
         nameElement.textContent = message || '连接服务器失败';
+        
+        // 在控制台输出详细错误信息
+        console.error('API连接错误:', message);
     }
     
     // 获取B站用户信息
@@ -79,7 +144,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch (error) {
             console.error('获取B站数据出错:', error);
-            setErrorState(`连接API服务器失败: ${error.message}`);
+            
+            // 给出更友好的提示
+            if (error.message.includes('Failed to fetch') || error.message.includes('Network')) {
+                setErrorState(`网络连接失败：请确保API服务器运行中<br>
+                <span style="font-size:12px;color:#ff6b81">
+                1. 确认服务器已启动<br>
+                2. 确认API地址正确: ${API_SERVER}<br>
+                3. 尝试使用 ?api=http://localhost:3000 参数</span>`);
+            } else {
+                setErrorState(`连接API服务器失败: ${error.message}`);
+            }
             return false;
         }
     }
