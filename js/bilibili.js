@@ -20,12 +20,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 格式化数字，添加千位分隔符
     function formatNumber(num) {
+        if (!num && num !== 0) return "--";
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    // 清除动画效果
+    function clearAnimations() {
+        followerElement.classList.remove('number-updated');
+        followingElement.classList.remove('number-updated');
+    }
+    
+    // 设置加载状态
+    function setLoadingState() {
+        clearAnimations();
+        followerElement.textContent = '加载中...';
+        followingElement.textContent = '加载中...';
+        nameElement.textContent = '加载中...';
+    }
+    
+    // 设置错误状态
+    function setErrorState(message) {
+        clearAnimations();
+        followerElement.textContent = '获取失败';
+        followingElement.textContent = '获取失败';
+        nameElement.textContent = message || '连接服务器失败';
     }
     
     // 获取B站用户信息
     async function fetchBilibiliUserInfo(uid) {
         try {
+            // 设置加载状态
+            setLoadingState();
+            
             // 使用独立的API服务器获取数据
             const response = await fetch(`${API_SERVER}/api/bilibili-fans?uid=${uid}`);
             const data = await response.json();
@@ -44,8 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // 移除动画类，以便下次使用
                 setTimeout(() => {
-                    followerElement.classList.remove('number-updated');
-                    followingElement.classList.remove('number-updated');
+                    clearAnimations();
                 }, 1000);
                 
                 return true;
@@ -54,9 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch (error) {
             console.error('获取B站数据出错:', error);
-            followerElement.textContent = '获取失败';
-            followingElement.textContent = '获取失败';
-            nameElement.textContent = `连接API服务器失败: ${error.message}`;
+            setErrorState(`连接API服务器失败: ${error.message}`);
             return false;
         }
     }
@@ -70,7 +93,11 @@ document.addEventListener('DOMContentLoaded', function() {
             nameElement.textContent = `B站用户 (UID: ${uid})`;
             
             // 获取一个默认头像或B站Logo
-            avatarElement.src = 'https://i0.hdslb.com/bfs/archive/4de86ebf7f463781a96337c23f767f53b65e30c1.png';
+            avatarElement.src = 'images/bilibili-logo.png'; // 使用本地图片
+            avatarElement.onerror = function() {
+                // 如果本地图片加载失败，使用B站默认图片
+                this.src = 'https://i0.hdslb.com/bfs/archive/4de86ebf7f463781a96337c23f767f53b65e30c1.png';
+            };
         } catch (error) {
             console.error('获取用户名失败:', error);
             nameElement.textContent = `未知用户 (UID: ${uid})`;
@@ -84,11 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (inputUid) {
             currentUid = inputUid;
         }
-        
-        // 显示加载状态
-        followerElement.textContent = '加载中...';
-        followingElement.textContent = '加载中...';
-        nameElement.textContent = '加载中...';
         
         // 获取数据
         fetchBilibiliUserInfo(currentUid);

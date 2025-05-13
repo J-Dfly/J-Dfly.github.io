@@ -589,8 +589,9 @@ p {
     padding: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 20px;
+    flex-wrap: nowrap;
 }
 
 .bilibili-avatar {
@@ -611,6 +612,7 @@ p {
 
 .bilibili-info {
     flex: 1;
+    min-width: 0;
 }
 
 .bilibili-name {
@@ -618,15 +620,18 @@ p {
     font-weight: 600;
     color: #1d1d1f;
     margin-bottom: 10px;
+    word-break: break-word;
 }
 
 .bilibili-stats {
     display: flex;
     margin-bottom: 15px;
+    flex-wrap: wrap;
 }
 
 .stat-item {
     margin-right: 30px;
+    margin-bottom: 10px;
 }
 
 .stat-label {
@@ -712,6 +717,7 @@ p {
 .bilibili-refresh {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .small-button {
@@ -721,6 +727,7 @@ p {
     border-radius: 17px;
     padding: 0 20px;
     margin-right: 15px;
+    margin-bottom: 10px;
 }
 
 .bilibili-input {
@@ -732,8 +739,14 @@ p {
     font-size: 14px;
     color: #1d1d1f;
     -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     outline: none;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .bilibili-input:focus {
@@ -744,32 +757,96 @@ p {
 @media (max-width: 600px) {
     .bilibili-card {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
+        padding: 15px;
     }
     
     .bilibili-avatar {
+        margin-right: 0;
         margin-bottom: 15px;
     }
     
+    .bilibili-info {
+        width: 100%;
+    }
+    
     .bilibili-stats {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: center;
     }
     
     .stat-item {
-        margin-bottom: 10px;
+        margin-right: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .stat-item:last-child {
+        margin-right: 0;
     }
     
     .bilibili-refresh {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        width: 100%;
     }
     
     .small-button {
+        margin-right: 0;
         margin-bottom: 10px;
         width: 100%;
+        max-width: 200px;
     }
     
     .bilibili-input {
         width: 100%;
+        max-width: 200px;
+    }
+    
+    .slideshow-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 32px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bilibili-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stat-item {
+        margin-right: 0;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    h1 {
+        font-size: 28px;
+    }
+    
+    h2 {
+        font-size: 22px;
+    }
+    
+    .container {
+        padding: 15px;
     }
 } 
