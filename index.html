@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>飞哥网站</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
     <div class="header">
@@ -16,9 +17,34 @@
         <h2>关于我们</h2>
         <p>管理黄嘉静</p>
 
-        <div class="image-container">
-            <img src="images/image1.jpg" alt="精美图片" class="featured-image">
-            <div class="image-caption">精心呈现，完美体验</div>
+        <div class="button-container">
+            <button id="toggleImageBtn" class="apple-button">
+                <span class="button-text">查看图片展示</span>
+                <span class="button-arrow">→</span>
+            </button>
+        </div>
+
+        <div id="imageContainer" class="image-container">
+            <div class="slideshow-container">
+                <div class="slide-nav prev-button" id="prevBtn">
+                    <span>&#10094;</span>
+                </div>
+                
+                <div class="slides-wrapper">
+                    <div class="slide active">
+                        <img src="images/image1.jpg" alt="精美图片" class="featured-image">
+                        <div class="image-caption">精美图片</div>
+                    </div>
+                </div>
+                
+                <div class="slide-nav next-button" id="nextBtn">
+                    <span>&#10095;</span>
+                </div>
+            </div>
+            
+            <div class="slide-indicators">
+                <span class="indicator active" data-index="0"></span>
+            </div>
         </div>
 
         <div class="divider"></div>

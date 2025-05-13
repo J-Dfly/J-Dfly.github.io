@@ -68,14 +68,14 @@ p {
 
 /* 图片相关样式 */
 .image-container {
-    margin: 30px 0;
-    text-align: center;
+    margin: 30px auto;
+    max-width: 800px;
 }
 
 .featured-image {
-    max-width: 70%;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -89,4 +89,257 @@ p {
     font-size: 14px;
     color: #86868b;
     font-style: italic;
+}
+
+/* 按钮相关样式 */
+.button-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.apple-button {
+    background: linear-gradient(180deg, #3898FF, #0070F5);
+    color: white;
+    border: none;
+    border-radius: 22px;
+    padding: 12px 28px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 99, 225, 0.3);
+    outline: none;
+    letter-spacing: -0.022em;
+    min-width: 160px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apple-button:hover {
+    background: linear-gradient(180deg, #57ACFF, #0080FF);
+    box-shadow: 0 4px 12px rgba(0, 99, 225, 0.4);
+    transform: translateY(-1px);
+}
+
+.apple-button:active {
+    background: linear-gradient(180deg, #0063E1, #0056C7);
+    box-shadow: 0 1px 3px rgba(0, 99, 225, 0.2);
+    transform: translateY(1px);
+}
+
+/* 按钮文字和箭头样式 */
+.button-text {
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.3s ease;
+}
+
+.button-arrow {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 300;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    position: relative;
+    top: 1px;
+}
+
+.apple-button:hover .button-arrow {
+    transform: translateX(4px);
+}
+
+.apple-button:hover .button-text {
+    transform: translateX(-2px);
+}
+
+/* 苹果网站风格下的按钮状态变化 */
+.apple-button.active {
+    background: #0070F5;
+}
+
+/* 按钮下的强调点 */
+.button-dot {
+    width: 4px;
+    height: 4px;
+    background-color: #0070F5;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transition: transform 0.3s ease;
+}
+
+.apple-button.active + .button-dot {
+    transform: translateX(-50%) scale(1);
+}
+
+/* 轮播图相关样式 */
+.slideshow-container {
+    position: relative;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.slides-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.slide {
+    display: none;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.slide.active {
+    display: block;
+    opacity: 1;
+    position: relative;
+}
+
+/* 添加轮播动画 */
+.slide-animation {
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+}
+
+.slide-in-right {
+    animation-name: slideInRight;
+}
+
+.slide-in-left {
+    animation-name: slideInLeft;
+}
+
+.slide-out-right {
+    animation-name: slideOutRight;
+}
+
+.slide-out-left {
+    animation-name: slideOutLeft;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.slide img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.slide-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #1d1d1f;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    z-index: 10;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(210, 210, 215, 0.3);
+}
+
+.slide-nav:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.prev-button {
+    left: -24px;
+}
+
+.next-button {
+    right: -24px;
+}
+
+.slide-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    background-color: #d2d2d7;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.indicator.active {
+    background-color: #0070F5;
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background-color: #86868b;
 } 
