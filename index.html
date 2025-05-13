@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>飞哥网站</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js"></script>
+    <script src="js/scripts.js"></script>
 </head>
 <body>
     <div class="header">
@@ -48,6 +48,36 @@
         </div>
 
         <div class="divider"></div>
+        
+        <div class="bilibili-section">
+            <h2>B站粉丝统计</h2>
+            <div class="bilibili-card">
+                <div class="bilibili-avatar">
+                    <img id="bilibili-avatar" src="images/bilibili-logo.png" alt="B站头像">
+                </div>
+                <div class="bilibili-info">
+                    <div class="bilibili-name" id="bilibili-name">加载中...</div>
+                    <div class="bilibili-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">粉丝数</div>
+                            <div class="stat-value" id="bilibili-followers">--</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">关注数</div>
+                            <div class="stat-value" id="bilibili-following">--</div>
+                        </div>
+                    </div>
+                    <div class="bilibili-refresh">
+                        <button id="refreshBtn" class="apple-button small-button">
+                            <span class="button-text">刷新数据</span>
+                        </button>
+                        <input type="text" id="uidInput" class="bilibili-input" placeholder="输入B站UID">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
         <h2>黄姐网站</h2>
         <p>臣服于冀双飞</p>
     </div>
@@ -55,6 +85,8 @@
     <div class="footer">
         <p>© 2024 飞哥网站. 保留所有权利。</p>
     </div>
+
+    <script src="js/bilibili.js"></script>
 </body>
 </html>
 
