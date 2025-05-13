@@ -4,6 +4,27 @@
     padding: 0;
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html, body {
+    -webkit-touch-action: manipulation;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    overflow-x: hidden;
+}
+
+/* 可选文本区域 */
+p, .image-caption {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 body {
@@ -106,6 +127,10 @@ p {
     font-size: 17px;
     font-weight: 500;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 99, 225, 0.3);
     outline: none;
@@ -120,12 +145,20 @@ p {
 .apple-button:hover {
     background: linear-gradient(180deg, #57ACFF, #0080FF);
     box-shadow: 0 4px 12px rgba(0, 99, 225, 0.4);
+    -webkit-transform: translateY(-1px);
+    -moz-transform: translateY(-1px);
+    -ms-transform: translateY(-1px);
+    -o-transform: translateY(-1px);
     transform: translateY(-1px);
 }
 
 .apple-button:active {
     background: linear-gradient(180deg, #0063E1, #0056C7);
     box-shadow: 0 1px 3px rgba(0, 99, 225, 0.2);
+    -webkit-transform: translateY(1px);
+    -moz-transform: translateY(1px);
+    -ms-transform: translateY(1px);
+    -o-transform: translateY(1px);
     transform: translateY(1px);
 }
 
@@ -185,6 +218,9 @@ p {
     justify-content: center;
     max-width: 800px;
     margin: 0 auto;
+    -webkit-touch-action: pan-y;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
 }
 
 .slides-wrapper {
@@ -198,6 +234,10 @@ p {
     display: none;
     text-align: center;
     opacity: 0;
+    -webkit-transition: opacity 0.8s ease;
+    -moz-transition: opacity 0.8s ease;
+    -ms-transition: opacity 0.8s ease;
+    -o-transition: opacity 0.8s ease;
     transition: opacity 0.8s ease;
     position: absolute;
     top: 0;
@@ -213,32 +253,66 @@ p {
 
 /* 添加轮播动画 */
 .slide-animation {
+    -webkit-animation-duration: 0.8s;
     animation-duration: 0.8s;
+    -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
 
 .slide-in-right {
+    -webkit-animation-name: slideInRight;
     animation-name: slideInRight;
 }
 
 .slide-in-left {
+    -webkit-animation-name: slideInLeft;
     animation-name: slideInLeft;
 }
 
 .slide-out-right {
+    -webkit-animation-name: slideOutRight;
     animation-name: slideOutRight;
 }
 
 .slide-out-left {
+    -webkit-animation-name: slideOutLeft;
     animation-name: slideOutLeft;
 }
 
-@keyframes slideInRight {
+@-webkit-keyframes slideInRight {
     from {
+        -webkit-transform: translateX(100%);
         transform: translateX(100%);
         opacity: 0;
     }
     to {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes slideInLeft {
+    from {
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translateX(0);
         transform: translateX(0);
         opacity: 1;
     }
@@ -246,32 +320,64 @@ p {
 
 @keyframes slideInLeft {
     from {
+        -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
         opacity: 0;
     }
     to {
+        -webkit-transform: translateX(0);
         transform: translateX(0);
         opacity: 1;
     }
 }
 
-@keyframes slideOutRight {
+@-webkit-keyframes slideOutRight {
     from {
+        -webkit-transform: translateX(0);
         transform: translateX(0);
         opacity: 1;
     }
     to {
+        -webkit-transform: translateX(100%);
         transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes slideOutLeft {
+    from {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
         opacity: 0;
     }
 }
 
 @keyframes slideOutLeft {
     from {
+        -webkit-transform: translateX(0);
         transform: translateX(0);
         opacity: 1;
     }
     to {
+        -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
         opacity: 0;
     }
@@ -342,4 +448,12 @@ p {
 
 .indicator:hover {
     background-color: #86868b;
+}
+
+/* 导航按钮触摸支持 */
+.slide-nav, .indicator, .apple-button {
+    -webkit-touch-action: manipulation;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
 } 
